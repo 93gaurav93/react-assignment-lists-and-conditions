@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
+import styles from './App.module.css';
 import Validation from './Components/Validation';
 import Char from './Components/Char';
+import Input from './Components/Input';
 
 class App extends Component {
 
@@ -17,37 +18,23 @@ class App extends Component {
 
   removeCharacter = (event, charIndex) => {
     let string = this.state.textValue;
-    string = string
-      .split('')
-      .filter((c, i) => {
-        return i !== charIndex
-      })
-      .join('');
+    string = string.split('');
+
+    string.splice(charIndex, 1);
+
     this.setState({
-      textValue: string
+      textValue: string.join('')
     });
   }
 
   render() {
 
-    let textStyle = {
-      width: '700px',
-      hieght: '50px',
-      padding: '10px',
-      margin: '20px',
-      border: '2px solid gray',
-      fontSize: '20px'
-    }
+
+    
 
     return (
-      <div className="App">
-        <input 
-          style={textStyle} 
-          type="text"
-          placeholder="Type here..." 
-          onChange={(event) => this.textChangeHandler(event)}
-          value={this.state.textValue}
-        />
+      <div className={styles.App}>
+        <Input textValue={this.state.textValue} changed={this.textChangeHandler}/>
         <Validation textValue={this.state.textValue} />
         
         {
